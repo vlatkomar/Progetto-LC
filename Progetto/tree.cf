@@ -1,0 +1,11 @@
+Radice. E  ::= E1;
+
+Nodo.   E1 ::= E3 "<" E2 ">";
+_.      E1 ::= E3;
+
+Nodi.   E2 ::= E1 "," E2;
+_.      E2 ::= E;
+
+Label.  E3 ::= Integer;
+
+coercions E 3 ;

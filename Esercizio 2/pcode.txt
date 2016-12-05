@@ -1,0 +1,164 @@
+procedura principale:
+ENT IMAX	alloco una quantita' di spazio pari a IMAX
+RETP
+
+g:
+ENT 0		non ci sono parameti
+RETF
+
+ins:
+ENT 0
+LDA 0 5		carico indirizzo di k
+IND 		e il suo valore
+LDC int 0
+EQU int		calcolo k=0
+FJP e		valuto se fare then o else
+LDA 1 4		carico indirizzo di v
+LDA 0 5		carico indirizzo di k
+IND		e il suo valore
+IXA 1		ottengo v[k]
+LDA 0 4		carico indirizzo di x 
+IND		e il suo valore
+STO 		memorizzo in v[k]
+UJP e1	
+e:
+LDA 2 4		carico indirizzo di mm
+LDA 0 5		carico indirizzo di k
+IND		e il suo valore
+LDC int 1
+ADD int 	calcolo k+1
+IXA 1		ottengo mm[k+1]
+LDA 0 4		carico indirizzo di k
+IND		e il suo valore
+LEQ int 	calcolo mm[k+1]<=x
+FJP e2		valuto se fare then o else
+LDA 1 4		carico indirizzo di v
+LDA 0 5		carico indirizzo di k
+IND 		e il suo valore
+IXA 1		ottengo v[k]
+LDA 0 4 	carico indirizzo di x
+IND		e il suo valore
+STO 		memorizzo in v[k]
+UJP e1		
+e2:
+LDA 1 4		carico indirizzo di v
+LDA 0 5		carico indirizzo di k
+IND		e il suo valore
+IXA 1 		ottengo v[k]
+LDA 1 4		carico indirizzo di v
+LDA 0 5		carico indirizzo di k
+LDC int 1
+SUB int		calcolo k-1
+IXA 1		ottengp v[k-1]
+STO 		memorizzo su v[k]
+MST 1		praparo la chiamata a ins
+LDA 0 4		carico indirizzo di x
+IND		e il suo valore
+LDC int 2	
+SUB int		calcolo x-2
+LDA 0 5		carico indirizzo di k
+IND		e il suo valore
+LDC int 1
+SUB int		calcolo k-1
+CUP 2 ins	chiamo ins(X-2, K-1)	
+e1:
+RETP
+
+sort:
+ENT 1		alloco spazio 1
+LDA 0 7		carico indirizzo di temp(serve per trasformare il for in while)
+MST 1		preparo la chiamata a g
+LDA 0 5		carico indirizzo di n
+IND		e il suo valore
+LDC int 5
+DIV int		faccio n/5
+CUP 1 g		chiamo g(n/5)
+STO 		memorizzo in temp
+LDA 0 6 	carico indirizzo di i
+LDC int 1
+STO 		memorizzo in i
+UJP guard
+body:	
+MST 1 ins	preparo chiamata a ins
+LDA 0 4		carico indirizzo di v
+LDA 0 6		carico indirizzo di i
+IND 		e il suo valore
+IXA 1		ottengo v[1]
+LDC int 3
+SUB int		calcolo v[1]-3
+LDA 0 6		carico indirizzo d i
+IND 		e salvo il suo valore
+CUP 2 ins	chiamo ins(v[1]-3,i)
+LDA 0 6		carico indirizzo di i
+LDA 0 6		carico indirizzo di i
+IND		e il suo valore
+LDC int 1	
+ADD int		calcolo i+1
+STO		e lo memorizzo in i
+guard:
+LDA 0 6		carico indirizzo di i
+IND		e il suo valore
+LDA 0 7		carico indirizzo di temp
+IND		e il so valore
+GTR int		faccio i>temp (la guardia va negata)
+FJP body
+RETP
+
+alt:
+ENT 0		non ci sono parametri
+LDA 0 4		carico indirizzo di i
+IND		e il suo valore
+LDC int 0
+EQU int		calcolo i=0
+FJP e		valuto se fare then o else
+LDA 0 0		carico indirizzo di ritorno di alt
+LDA 0 5		carico indirizzo di x
+IND 		e il suo valore
+STO 		ritorno il risultato
+UJP e1		valuto se fare then o else
+e:
+LDA 0 4		carico indirizzo di i
+ODD int		calcolo odd(i)
+FJP e2		
+LDA 0 0		carico indirizzo del valore di ritorno
+MST 1		praparo la chiamata ricorsiva
+LDA 0 4		carico indirizzo di i
+IND		e il suo valore
+LDC int i	
+SUB int		calcolo i-1
+MST 1 		preparo chiamata a g
+LDA 0 5		carico indirizzo di x
+IND 		e il suo valore
+CUP 1 f		chiamo f(x)
+CUP 2 alt	calcolo alt(i-1,f(x))
+STO		ritorno il risultato
+UJP e1
+e2:
+LDA 0 0		carico indirizzo del valore di ritorno
+MST 1		preparo la chiamata ricorsiva
+LDA 0 4		carico indirizzo di i
+IND		e il suo valore
+LDC int i	
+SUB int		calcolo i-1
+MST 1 		preparo chiamata a g
+LDA 0 5		carico indirizzo di x
+IND 		e il suo valore
+CUP 1 g		chiamo g(x)
+CUP 2 alt	chiamo alt(i-1,g(x))
+STO		ritorno il risultato
+e1:
+RETF
+
+f:
+ENT 0		non ci sono parametri
+LDA 0 0		carico indirizzo del valore di ritorno
+LDC int 1
+LDC int 1
+LDA 0 4		carico indirizzo di x
+IND		e il suo valore
+DIV int		calcolo 1/x
+ADD int 	calcolo 1+1/x
+STO		ritorno il risultato
+RETF
+
+

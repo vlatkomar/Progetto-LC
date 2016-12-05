@@ -1,0 +1,19 @@
+Tree.       E ::= E3 E1 ;
+_.          E ::= E3 ;
+
+Sons.       E1 ::= E2 E1 ;
+_.          E1 ::= E2 ;
+
+Son.        E2 ::= E3 ;
+_.          E2 ::= "(" E ")"  ;
+ 
+Int.        E3 ::= Integer ;
+Float.      E3 ::= Double ;
+
+
+
+
+
+
+
+

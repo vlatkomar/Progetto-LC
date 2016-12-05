@@ -1,0 +1,6 @@
+%%
+
+Ein=((("Michelli \  Luca")($printable#[\;\,\$\|\?\#\~\{\}\(\)\^\/])+\) ((("Comini \  Marco")($printable#[\;\,\$\|\?\#\~\{\}\(\)\^\/])+\) (("Graca \  Sanela")("Markovski \  Vlatko")?)?|("Markovski \  Vlatko")?)|(("Graca \  Sanela")($printable#[\;\,\$\|\?\#\~\{\}\(\)\^\/])+\) ("Markovski \  Vlatko")?)|("Markovski \  Vlatko")))|(("Comini \  Marco")($printable#[\;\,\$\|\?\#\~\{\}\(\)\^\/])+\) ((("Graca \  Sanela")($printable#[\;\,\$\|\?\#\~\{\}\(\)\^\/])+\) ("Markovski \  Vlatko")?))|("Markovski \  Vlatko")))|(("Graca  \  Sanela")($printable#[\;\,\$\|\?\#\~\{\}\(\)\^\/])+\) ("Markovski \  Vlatko")?)|(("Markovski \  Vlatko")))
+
+Ein1=({s})(\”)(Michelli)” “(Luca)\”{s}(“, “)*\”(Comini)” “(Marco)\”{s}”, “” “*\”(Graca)” “(Sanela)\”{s}”, “” “\”(Markovski)” “(Vlatko)\”){s}
+Eout1=1\2\7\5\2\6\5\1\2\9\5\2\8\5\1\2\11\5\2\10\5\1\2\4\5\2\3\2\1

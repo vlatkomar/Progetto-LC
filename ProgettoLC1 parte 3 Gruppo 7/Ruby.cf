@@ -1,0 +1,115 @@
+comment "#" ;
+comment "=b" "=e" ;
+
+Prog.   Program ::= [Def] ;
+
+
+--DEFINIZIONI------------------------------------------------------------
+DFun.   Def     ::= "def"  Ident "(" [Arg] ")" "<" Type ">" [Stm] "end" ;
+DVar.   Def     ::= "@" Ident "=" Expr ;
+DBlock. Def     ::= Ident "{" [Def] "}" ;
+
+terminator Def "" ;
+
+
+--ARGOMENTI FUNZIONI-----------------------------------------------------
+ADec.    Arg    ::= Mod Type Ident ;
+ADecP.   Arg    ::= Mod Type "&" Ident ;
+
+separator Arg "," ;
+separator  nonempty Ident "," ;
+
+
+--MODALITÀ DI PASSAGGIO--------------------------------------------------
+MDef.    Mod    ::= ;
+MVal.    Mod    ::= "val" ;
+MValRes. Mod    ::= "valres" ; 
+MRef.    Mod    ::= "ref" ;
+
+--VARIABILI--------------------------------------------------------------
+VarFor.    Vari ::= Ident ;
+VarAss.    Vari ::= Ident "=" Expr ;
+terminator Vari ""  ;
+separator  Vari "," ;
+
+--STATEMENT--------------------------------------------------------------
+SVar.     Stm   ::= Vari ;
+SVarP.    Stm   ::= "&" Ident "=" Expr ;
+SExpr.    Stm   ::= Expr ;
+SBlock.   Stm   ::= Ident "{" [Def] "}" ;
+SReturn.  Stm   ::= "return" [Expr]  ;
+SWhile.   Stm   ::= "while" Expr "do" Stm "end" ;
+SFor.     Stm   ::= "for" Vari "in" Expr "do" Stm "end" ; 
+SIf.      Stm   ::= "if" Expr "then" Stm "end" ;
+SIfElse.  Stm   ::= "if" Expr "then" Stm [Stm] "else" Stm "end" ; 
+SElsif.   Stm   ::= "elsif" Expr "then" Stm ;
+
+terminator Stm "" ;
+
+--ESPRESSIONI------------------------------------------------------------
+EAss.     Expr1  ::= Expr2 "="  Expr1 ;
+EIncAss.  Expr1  ::= Expr2 "+=" Expr1 ;
+EDecAss.  Expr1  ::= Expr2 "-=" Expr1 ;
+EMulAss. Expr1  ::= Expr2 "*=" Expr1 ;
+EDivAss. Expr1  ::= Expr2 "/=" Expr1 ;
+EOr.     Expr2  ::= Expr2 "||" Expr3 ;
+EAnd.    Expr3  ::= Expr3 "&&" Expr4 ;
+EEq.     Expr4  ::= Expr4 "==" Expr5 ;
+ENeq.    Expr4  ::= Expr4 "!=" Expr5 ;
+ELt.     Expr5  ::= Expr5 "<"  Expr6 ;
+ELtEq.   Expr5  ::= Expr5 "<=" Expr6 ;
+EGt.     Expr5  ::= Expr5 ">"  Expr6 ;
+EGtEq.   Expr5  ::= Expr5 ">=" Expr6 ;
+EAdd.    Expr6  ::= Expr6 "+"  Expr7 ;
+ESub.    Expr6  ::= Expr6 "-"  Expr7 ;
+EMul.    Expr7  ::= Expr7 "*"  Expr8 ;
+EDiv.    Expr7  ::= Expr7 "/"  Expr8 ;
+EMod.    Expr7  ::= Expr7 "%"  Expr8 ;
+EPow.    Expr8  ::= Expr8 "**" Expr9 ;
+ENot.    Expr9  ::= "!" Expr10 ;  
+EIncPre.  Expr10 ::= "++" Expr11 ;
+EDecPre.  Expr10 ::= "--" Expr11 ; 
+EIncPost. Expr10 ::= Expr11 "++" ;
+EDecPost. Expr10 ::= Expr11 "--" ; 
+EDeRef.   Expr10 ::= "*" Expr11 ;
+ENeg.     Expr10 ::= "-" Expr11 ;
+ECall.   Expr11 ::= Ident "(" [Expr] ")" ;
+ERange.  Expr12 ::= Integer ".." Integer ;
+EStr.    Expr12 ::= String ;
+EInt.    Expr12 ::= Integer ;
+EReal.   Expr12 ::= Double ;
+EChar.   Expr12 ::= Char ;
+EArray.  Expr12 ::= Ident "=" "[" [Expr] "]" ;
+ETrue.   Expr12 ::= "true" ;
+EFalse.  Expr12 ::= "false" ;  
+EBreak.  Expr13 ::= "break" ;
+ECont.   Expr13 ::= "continue" ;
+EId.     Expr13 ::= Ident ;
+
+coercions Expr 13 ;
+
+separator Expr "," ;
+
+--TIPI-------------------------------------------------------------------
+TInt.    Type ::= "int" ;
+TReal.   Type ::= "real" ;
+TBool.   Type ::= "boolean" ;
+TChar.   Type ::= "char" ;
+TString. Type ::= "string" ;
+TArray.  Type ::= "Array" ;
+
+--TIPI-non da usare------------------------------------------------------
+TNil.    Type ::= "nil";
+TRange.  Type ::= "range" ;
+
+
+
+
+
+
+
+
+
+
+
+
